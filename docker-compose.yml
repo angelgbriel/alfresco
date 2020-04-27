@@ -5,7 +5,7 @@ services:
   
   content:
        
-      image: alfresco/alfresco-content-repository-community:6.2.1-RC1
+      image: alfresco/alfresco-content-repository
       
       
       mem_limit: 1500m
