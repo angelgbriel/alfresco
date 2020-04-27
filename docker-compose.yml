@@ -90,7 +90,7 @@ services:
   
   process:
     
-    image: alfresco-process-services-custom:1.0.0-SNAPSHOT
+    image: alfresco-process-services-custom
     
     
     environment:
