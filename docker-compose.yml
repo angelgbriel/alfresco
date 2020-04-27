@@ -27,6 +27,8 @@ services:
                 -Dshare.port=8080
                 -Dalfresco.host=localhost
                 -Dalfresco.port=8080
+                -Dprocess.host=localhost
+                -Dprocess.port=8080
                 -Daos.baseUrlOverwrite=http://localhost:8080/alfresco/aos
                 -Dmessaging.broker.url=\"failover:(nio://activemq:61616)?timeout=3000&jms.useCompression=true\"
                 -Ddeployment.method=DOCKER_COMPOSE
@@ -68,22 +70,18 @@ services:
 
     process:
         image: alfresco/process-services:1.6.2
+        mem_limit: 1g
         environment:
-          ACTIVITI_DATASOURCE_USERNAME: alfresco
-          ACTIVITI_DATASOURCE_PASSWORD: alfresco
-          ACTIVITI_DATASOURCE_DRIVER: org.postgresql.Driver
-          ACTIVITI_HIBERNATE_DIALECT: org.hibernate.dialect.PostgreSQLDialect
-          ACTIVITI_DATASOURCE_URL: 'jdbc:postgresql://postgres:5432/activiti?characterEncoding=UTF-8'
-          ACTIVITI_CSRF_DISABLED: 'true'
-          ACTIVITI_CORS_ENABLED: 'true'
-        #volumes:
-        # - "~/.activiti/enterprise-license:/root/.activiti/enterprise-license/:ro"
-        ports:
-        - 8085:8080
-        links:
-          - postgres:postgres
-        depends_on:
-          - postgres
+            REPO_HOST: "alfresco"
+            REPO_PORT: "8080"
+            JAVA_OPTS: "
+                -Xms500m
+                -Xmx500m
+                -Dalfresco.host=localhost
+                -Dalfresco.port=8080
+                -Dalfresco.context=alfresco
+                -Dalfresco.protocol=http
+                "
 
     postgres:
         image: postgres:11.4
@@ -132,4 +130,5 @@ services:
             - 8080:8080
         links:
             - alfresco
-            - share     
+            - share
+            - process     
