@@ -66,24 +66,24 @@ services:
                 -Dalfresco.protocol=http
                 "
 
-	process:
-	    image: alfresco/process-services:1.6.2
-	    environment:
-	      ACTIVITI_DATASOURCE_USERNAME: alfresco
-	      ACTIVITI_DATASOURCE_PASSWORD: alfresco
-	      ACTIVITI_DATASOURCE_DRIVER: org.postgresql.Driver
-	      ACTIVITI_HIBERNATE_DIALECT: org.hibernate.dialect.PostgreSQLDialect
-	      ACTIVITI_DATASOURCE_URL: 'jdbc:postgresql://postgres:5432/activiti?characterEncoding=UTF-8'
-	      ACTIVITI_CSRF_DISABLED: 'true'
-	      ACTIVITI_CORS_ENABLED: 'true'
-	    #volumes:
-	    # - "~/.activiti/enterprise-license:/root/.activiti/enterprise-license/:ro"
-	    ports:
-	    - 8085:8080
-	    links:
-	      - postgres:postgres
-	    depends_on:
-	      - postgres
+    process:
+        image: alfresco/process-services:1.6.2
+        environment:
+          ACTIVITI_DATASOURCE_USERNAME: alfresco
+          ACTIVITI_DATASOURCE_PASSWORD: alfresco
+          ACTIVITI_DATASOURCE_DRIVER: org.postgresql.Driver
+          ACTIVITI_HIBERNATE_DIALECT: org.hibernate.dialect.PostgreSQLDialect
+          ACTIVITI_DATASOURCE_URL: 'jdbc:postgresql://postgres:5432/activiti?characterEncoding=UTF-8'
+          ACTIVITI_CSRF_DISABLED: 'true'
+          ACTIVITI_CORS_ENABLED: 'true'
+        #volumes:
+        # - "~/.activiti/enterprise-license:/root/.activiti/enterprise-license/:ro"
+        ports:
+        - 8085:8080
+        links:
+          - postgres:postgres
+        depends_on:
+          - postgres
 
     postgres:
         image: postgres:11.4
